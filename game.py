@@ -7,4 +7,12 @@ def show():
     print("---+---+---")
     print(board[6], "  |", board[7], " |", board[8])
 
-show()
+turn = "X"
+while True:
+    show()
+    m = input(turn + " pick from 1-9:")
+    board[int(m) - 1] = turn
+if turn == "X":
+    turn = "O"
+else:
+    turn = "X"
