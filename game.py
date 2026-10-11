@@ -15,28 +15,37 @@ def win_check(p):
             return True
     return False
 
-turn = "X"
+def play():
+    global board
+    board = [""] * 9
+    turn = "X"
+    while True:
+        show()
+
+        m = input(turn + " pick from 1-9:")
+
+        if not m.isdigit() or int(m) < 1 or int(m) > 9:
+            print("Bad Input!")
+            continue
+        if board[int(m) - 1] != "":
+            print("This board is taken!")
+            continue
+        board[int(m) - 1] = turn
+        if win_check(turn):
+            show()
+            print(turn, "Wins!")
+            return
+        if "" not in board:
+            show()
+            print("Draw!")
+            return
+        if turn == "X":
+            turn = "O"
+        else:
+            turn = "X"
 while True:
-    show()
-
-    m = input(turn + " pick from 1-9:")
-
-    if not m.isdigit() or int(m) < 1 or int(m) > 9:
-        print("Bad Input!")
-        continue
-    if board[int(m) - 1] != "":
-        print("This board is taken!")
-        continue
-    board[int(m) - 1] = turn
-    if win_check(turn):
-        show()
-        print(turn, "Wins!")
+    play()
+    again = input("Play again? (y/n): ")
+    if again !="y":
         break
-    if "" not in board:
-        show()
-        print("Draw!")
-        break
-    if turn == "X":
-        turn = "O"
-    else:
-        turn = "X"
+print("Bye!")
