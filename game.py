@@ -1,3 +1,6 @@
+def clear():
+    print("\033[2J\033[H")
+
 board = [""] * 9
 
 def show():
@@ -20,6 +23,7 @@ def play():
     board = [""] * 9
     turn = "X"
     while True:
+        clear()
         show()
 
         m = input(turn + " pick from 1-9:")
@@ -43,6 +47,9 @@ def play():
             turn = "O"
         else:
             turn = "X"
+clear()
+print("=== SSH TIC TAC TOE ===")
+name = input("Your Name: ")
 while True:
     play()
     again = input("Play again? (y/n): ")
