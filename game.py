@@ -1,3 +1,10 @@
+import random
+
+def save_score(name, result):
+    f = open("scores.txt", "a")
+    f.write(name + "," + result + "\n")
+    f.close()
+
 def clear():
     print("\033[2J\033[H")
 
@@ -18,7 +25,7 @@ def win_check(p):
             return True
     return False
 
-def play():
+def play(mode):
     global board
     board = [""] * 9
     turn = "X"
@@ -26,7 +33,10 @@ def play():
         clear()
         show()
 
-        m = input(turn + " pick from 1-9:")
+        if mode == "2" and turn == "O":
+            m = str(random.choice([i + 1 for i in range(9) if board[i] == ""]))
+        else:
+            m = input(turn + " pick from 1-9:")
 
         if not m.isdigit() or int(m) < 1 or int(m) > 9:
             print("Bad Input!")
@@ -38,10 +48,12 @@ def play():
         if win_check(turn):
             show()
             print(turn, "Wins!")
+            save_score(name, turn + "Won")
             return
         if "" not in board:
             show()
             print("Draw!")
+            save_score(name, "draw")
             return
         if turn == "X":
             turn = "O"
@@ -51,7 +63,8 @@ clear()
 print("=== SSH TIC TAC TOE ===")
 name = input("Your Name: ")
 while True:
-    play()
+    mode = input("1 = Two players, 2 = Vs computer: ")
+    play(mode)
     again = input("Play again? (y/n): ")
     if again !="y":
         break
