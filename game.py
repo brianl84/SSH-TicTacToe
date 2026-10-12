@@ -19,13 +19,13 @@ def show():
 
 wins=[(0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6)]
 
-def win_check(p):
+def win_check(bd, p):
     for a,b,c in wins:
-        if board[a] == p and board[b] == p and board[c] == p:
+        if bd[a] == p and bd[b] == p and bd[c] == p:
             return True
     return False
 
-def play(mode):
+def play(mode, name):
     global board
     board = [""] * 9
     turn = "X"
@@ -45,7 +45,7 @@ def play(mode):
             print("This board is taken!")
             continue
         board[int(m) - 1] = turn
-        if win_check(turn):
+        if win_check(board, turn):
             show()
             print(turn, "Wins!")
             save_score(name, turn + "Won")
@@ -59,13 +59,17 @@ def play(mode):
             turn = "O"
         else:
             turn = "X"
-clear()
-print("=== SSH TIC TAC TOE ===")
-name = input("Your Name: ")
-while True:
-    mode = input("1 = Two players, 2 = Vs computer: ")
-    play(mode)
-    again = input("Play again? (y/n): ")
-    if again !="y":
-        break
-print("Bye!")
+def main():
+    clear()
+    print("=== SSH TIC TAC TOE ===")
+    name = input("Your Name: ")
+    while True:
+        mode = input("1 = Two players, 2 = Vs computer: ")
+        play(mode, name)
+        again = input("Play again? (y/n): ")
+        if again !="y":
+            break
+    print("Bye!")
+
+if __name__ == "__main__":
+    main()
